@@ -11,10 +11,10 @@ class User(SqlAlchemyBase, UserMixin, SerializerMixin):
     __tablename__ = 'users'
     id = sqlalchemy.Column(sqlalchemy.Integer,
                            primary_key=True, autoincrement=True)
-    name = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    surname = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    login = sqlalchemy.Column(sqlalchemy.String, primary_key=True, nullable=True)
-    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    name = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    surname = sqlalchemy.Column(sqlalchemy.String, nullable=False)
+    login = sqlalchemy.Column(sqlalchemy.String, primary_key=True, nullable=False)
+    hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=False)
     klass = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
     ball = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     is_teacher = sqlalchemy.Column(sqlalchemy.Boolean, default=False)
