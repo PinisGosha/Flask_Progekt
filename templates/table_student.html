@@ -5,12 +5,20 @@
   <title>{{title}}</title>
  </head>
  <body>
- <h3> Общество </h3>
- <h3> Имя фамилия логин балл</h3>
-  <table border="1">
+ <table border="1">
+  <tr>
+   <th>Обществознание</th>
+   </tr>
+  <tr>
+   <th>Имя</th>
+   <th>Фамилия</th>
+   <th>Логтн</th>
+   <th>Пароль</th>
+   <th>Балл</th>
+   </tr>
       {% for student in students %}
    <tr>
-    <th>{{student.name}}</th>
+       <th>{{student.name}}</th>
        <th>{{student.surname}}</th>
        <th>{{student.login}}</th>
        <th>{{student.password}}</th>
