@@ -67,23 +67,24 @@ def login():
     # return render_template('table_student.html', title='Таблица учеников', students=sp)
 
 
-''' @app.route('/student_delete', methods=['GET', 'POST'])
+@app.route('/student_delete', methods=['DELETE'])
 @login_required
-def jobs_delete():
+def student_delete():
     form = DeleteStudentForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        student = db_sess.query(User).filter(User.login == form.login.data).first()
+        student = db_sess.query(User).get(form.login.data)
         if student and current_user.check_password(form.password.data):
             db_sess.delete(student)
             db_sess.commit()
+            return redirect('/user_teacher')
         return render_template('login.html',
                                message="Неправильный логин или пароль",
                                form=form)
     return render_template('login.html', title='удаление ученика', form=form)
-
-
-@app.route('/student/app', methods=['GET', 'POST'])
+    
+    
+'''@app.route('/student/app', methods=['POST'])
 @login_required
 def student_app():
     form = RegistForm()
@@ -93,24 +94,14 @@ def student_app():
                                    form=form,
                                    message="Пароли не совпадают")
         db_sess = db_session.create_session()
-        if db_sess.query(User).filter(User.email == form.email.data).first():
+        if db_sess.query(User).get(form.login.data):
             return render_template('register.html', title='Регистрация',
                                    form=form,
                                    message="Такой пользователь уже есть")
         user = User(
                 name=form.name.data,
-                email=form.email.data,
-        )
-        //user = User(
-            name=form.name.data,
-            surname=form.surname.data,
-            email=form.email.data,
-            age=form.age.data,
-            position=form.position.data,
-            speciality=form.speciality.data,
-            address=form.address.data,
-            modified_date=form.modified_date.data
-        )//
+                surname=form.surname.data,
+                login=form.login.data)
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
@@ -180,8 +171,6 @@ def jobs_delete(id):
     else:
         abort(404)
     return redirect('/')
-
-
 @app.route('/news/<int:id>', methods=['GET', 'POST'])
 @login_required
 def edit_news(id):
